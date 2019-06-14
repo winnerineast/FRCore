@@ -1,4 +1,6 @@
 import face_recognition
+
+
 known_image = face_recognition.load_image_file("./data/biden.jpg")
 unknown_image = face_recognition.load_image_file("./data/obama.jpg")
 #unknown_image = face_recognition.load_image_file("./data/unknown.jpg")
