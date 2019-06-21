@@ -4,13 +4,8 @@ import PIL.Image
 import dlib
 import numpy as np
 from PIL import ImageFile
+import face_recognition_models
 
-try:
-    import face_recognition_models
-except Exception:
-    print("Please install `face_recognition_models` with this command before using `face_recognition`:\n")
-    print("pip install git+https://github.com/ageitgey/face_recognition_models")
-    quit()
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
@@ -19,8 +14,8 @@ face_detector = dlib.get_frontal_face_detector()
 predictor_68_point_model = face_recognition_models.pose_predictor_model_location()
 pose_predictor_68_point = dlib.shape_predictor(predictor_68_point_model)
 
-predictor_5_point_model = face_recognition_models.pose_predictor_five_point_model_location()
-pose_predictor_5_point = dlib.shape_predictor(predictor_5_point_model)
+#predictor_5_point_model = face_recognition_models.pose_predictor_five_point_model_location()
+#pose_predictor_5_point = dlib.shape_predictor(predictor_5_point_model)
 
 cnn_face_detection_model = face_recognition_models.cnn_face_detector_model_location()
 cnn_face_detector = dlib.cnn_face_detection_model_v1(cnn_face_detection_model)
@@ -159,8 +154,8 @@ def _raw_face_landmarks(face_image, face_locations=None, model="large"):
 
     pose_predictor = pose_predictor_68_point
 
-    if model == "small":
-        pose_predictor = pose_predictor_5_point
+#    if model == "small":
+#        pose_predictor = pose_predictor_5_point
 
     return [pose_predictor(face_image, face_location) for face_location in face_locations]
 
@@ -209,7 +204,7 @@ def face_encodings(face_image, known_face_locations=None, num_jitters=1):
     :param num_jitters: How many times to re-sample the face when calculating encoding. Higher is more accurate, but slower (i.e. 100 is 100x slower)
     :return: A list of 128-dimensional face encodings (one for each face in the image)
     """
-    raw_landmarks = _raw_face_landmarks(face_image, known_face_locations, model="small")
+    raw_landmarks = _raw_face_landmarks(face_image, known_face_locations, model="large")
     return [np.array(face_encoder.compute_face_descriptor(face_image, raw_landmark_set, num_jitters)) for raw_landmark_set in raw_landmarks]
 
 
