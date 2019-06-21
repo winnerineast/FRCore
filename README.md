@@ -6,9 +6,11 @@ this is to show the capability of FR.
 - refer to requirements.txt
  
 ## Features
-[x] - 1:1
-[x] - 1:N
-[x] - liveness detection
+- [x] 1:1
+- [x] 1:N
+- [ ] liveness detection
+- [x] data annotation tools.
+- [ ] training own models.
 
 ## Enhancement
 1. need to train our own model.
